@@ -11,3 +11,47 @@ Example connection:
         NatsMessengerDependencyInjector natsMessengerDependencyInjector = new NatsMessengerDependencyInjector(this);
         natsMessengerDependencyInjector.initialize();
 ```
+Example send callback packet:
+```java
+        try {
+            this.messengerConnection.sendRequestPacket("test_messenger_request", new TestPacket("test a message", new User()),
+                    new MessengerPacketResponse<TestPacketResponse>() {
+
+                        @Override
+                        public void done(TestPacketResponse packetResponse) {
+                            System.out.println(packetResponse.getText());
+                        }
+
+                        @Override
+                        public void error(String errorMessage) {
+                            System.out.println(errorMessage);
+                        }
+                    });
+        } catch (MessengerSendPacketException e) {
+            e.printStackTrace();
+        }
+    }
+```
+Example handle received packet callback:
+```
+public class TestPacketHandler implements MessengerPacketRequestHandler<TestPacket> {
+
+
+    @MessengerPacketHandlerInfo(listenChannelName = "test_messenger_request", packetClass = TestPacket.class)
+    @Override
+    public void handle(TestPacket packet, long callbackId, MessengerConnection messengerConnection) {
+        System.out.println(packet.getMessage());
+
+        TestPacketResponse testPacket = new TestPacketResponse();
+        testPacket.setResponse(true);
+        testPacket.setDone(true);
+        testPacket.setCallbackId(callbackId);
+
+        try {
+            messengerConnection.sendPacket("test_messenger_request", testPacket);
+        } catch (MessengerSendPacketException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
