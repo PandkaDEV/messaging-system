@@ -30,9 +30,6 @@ public class RedisMessenger extends MessengerController {
         redisMessengerDependencyInjector.initialize(this.messengerConnection);
     }
 
-    public static void main(String[] args) {
-        new RedisMessenger("127.0.0.1", 6379, "","org.pieszku.messaging.redis.handler","messenger_response", "messenger_request" );
-    }
 
     public RedisMessengerConnection getMessengerConnection() {
         return messengerConnection;

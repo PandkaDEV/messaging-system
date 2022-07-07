@@ -27,20 +27,7 @@ public class NatsMessenger extends MessengerController<NatsMessengerConnection> 
 
         NatsMessengerDependencyInjector natsMessengerDependencyInjector = new NatsMessengerDependencyInjector(handlersPackageName);
         natsMessengerDependencyInjector.initialize(this.messengerConnection);
-
-        this.messengerConnection.sendRequestPacket("messenger_request", new TestPacket("test a message", new User()), new MessengerPacketResponse<TestPacketResponse>() {
-
-
-                    @Override
-                    public void done(TestPacketResponse packetResponse) {
-                        System.out.println(packetResponse.getText());
-                    }
-
-                    @Override
-                    public void error(String errorMessage) {
-                        System.out.println(errorMessage);
-                    }
-                });
+        
     }
 
     public static void main(String[] args) {

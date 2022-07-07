@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pieszku-nats-messenger</artifactId>
+
+
     <dependencies>
         <dependency>
             <groupId>org.pieszku.messaging</groupId>
