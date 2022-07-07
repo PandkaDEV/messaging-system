@@ -1,5 +1,4 @@
 
-### Not a long... SourceCode
 ### NATS
 
 Example connection:
