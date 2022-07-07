@@ -5,7 +5,7 @@ import org.pieszku.messaging.api.packet.MessengerPacket;
 
 public class NatsMessengerPacketSerializer {
 
-    private static final FSTConfiguration FST_CONFIGURATION = FSTConfiguration.createDefaultConfiguration();
+    private static final FSTConfiguration FST_CONFIGURATION = NatsMessenger.getInstance().getFstConfiguration();
 
     public static MessengerPacket deserialize(byte[] input) {
         return (MessengerPacket) FST_CONFIGURATION.asObject(input);
