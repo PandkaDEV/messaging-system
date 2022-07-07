@@ -96,7 +96,7 @@ Example send callback packet: #try/catch is hardly required
 ```
 Example handle received packet callback:
 ```java
-public class TestPacketHandler implements MessengerPacketRequestHandler<TestPacket> {
+public class TestPacketHandler implements MessengerCallbackPacketHandler<TestPacket> {
 
 
     @MessengerPacketHandlerInfo(listenChannelName = "test_messenger_request", packetClass = TestPacket.class)
