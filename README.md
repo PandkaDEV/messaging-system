@@ -57,3 +57,5 @@ public class TestPacketHandler implements MessengerCallbackPacketHandler<TestPac
     }
 }
 ```
+### REDIS
+Almost how a #Nats 
