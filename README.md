@@ -7,7 +7,9 @@ Example connection:
                 new String[]{"test_messenger_response", "test_messenger_request"},
                 "org.pieszku.messaging.nats.handler");
         this.messengerConnection.setConnectionState(MessengerConnectionState.TRYING);
-
+```
+Enable handlers receving packets:
+```java
         NatsMessengerDependencyInjector natsMessengerDependencyInjector = new NatsMessengerDependencyInjector(this);
         natsMessengerDependencyInjector.initialize();
 ```
