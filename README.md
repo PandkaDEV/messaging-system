@@ -94,7 +94,7 @@ Example send callback packet: #try/catch is hardly required
 ```
 Example handle received packet callback:
 ```java
-public class TestPacketHandler implements MessengerCallbackPacketHandler<TestPacket> {
+public class TestPacketHandler implements MessengerPacketRequestHandler<TestPacket> {
 
 
     @MessengerPacketHandlerInfo(listenChannelName = "test_messenger_request", packetClass = TestPacket.class)
@@ -102,11 +102,16 @@ public class TestPacketHandler implements MessengerCallbackPacketHandler<TestPac
     public void handle(TestPacket packet, long callbackId, MessengerConnection messengerConnection) {
         System.out.println(packet.getMessage());
 
-        TestPacket testPacket = new TestPacket("response OK.", packet.getUser());
+        TestPacketResponse testPacket = new TestPacketResponse();
         testPacket.setResponse(true);
         testPacket.setDone(true);
         testPacket.setCallbackId(callbackId);
-        RedisMessenger.getInstance().getMessengerConnection().sendPacket("test_messenger_response", testPacket);
+
+        try {
+            messengerConnection.sendPacket("test_messenger_request", testPacket);
+        } catch (MessengerSendPacketException e) {
+            e.printStackTrace();
+        }
     }
 }
 ```
