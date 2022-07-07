@@ -50,7 +50,7 @@ public class TestPacketHandler implements MessengerPacketRequestHandler<TestPack
         testPacket.setCallbackId(callbackId);
 
         try {
-            messengerConnection.sendPacket("test_messenger_request", testPacket);
+            messengerConnection.reply(testPacket);
         } catch (MessengerSendPacketException e) {
             e.printStackTrace();
         }
