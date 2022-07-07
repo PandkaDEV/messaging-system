@@ -1,5 +1,7 @@
 
-```java
+
+### MAVEN
+```
 	<repositories>
 		<repository>
 		    <id>jitpack.io</id>
@@ -13,6 +15,20 @@
 	    <version>4dc61dc9dc</version>
 	</dependency>
 ```
+
+### GRADLE
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	dependencies {
+	        implementation 'com.github.Piechuuu:messaging-system:Tag'
+	}
+```
+
 
 ### NATS
 
