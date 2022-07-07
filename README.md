@@ -35,7 +35,7 @@ Example send callback packet:
     }
 ```
 Example handle received packet callback:
-```
+```java
 public class TestPacketHandler implements MessengerPacketRequestHandler<TestPacket> {
 
 
