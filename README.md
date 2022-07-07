@@ -25,7 +25,7 @@
 		}
 	}
 	dependencies {
-	        implementation 'com.github.Piechuuu:messaging-system:Tag'
+	        implementation 'com.github.Piechuuu.messaging-system:pieszku-messaging-system:4dc61dc9dc'
 	}
 ```
 
