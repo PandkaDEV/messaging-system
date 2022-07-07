@@ -25,11 +25,6 @@ public class NatsMessenger extends MessengerController<NatsMessengerConnection> 
         natsMessengerDependencyInjector.initialize(this.messengerConnection);
 
     }
-
-    public static void main(String[] args) {
-        new NatsMessenger("0.0.0.0", 4222,"", "org.pieszku.messaging.nats.handler","messenger_response", "messenger_request");
-    }
-
     public NatsMessengerConnection getMessengerConnection() {
         return this.messengerConnection;
     }
