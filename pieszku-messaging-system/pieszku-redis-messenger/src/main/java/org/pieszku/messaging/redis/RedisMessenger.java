@@ -2,13 +2,7 @@ package org.pieszku.messaging.redis;
 
 import org.pieszku.messaging.api.connection.state.MessengerConnectionState;
 import org.pieszku.messaging.api.controller.MessengerController;
-import org.pieszku.messaging.api.entity.User;
 import org.pieszku.messaging.api.injector.type.MessengerPacketInjectorType;
-import org.pieszku.messaging.api.packet.MessengerPacketResponse;
-import org.pieszku.messaging.api.packet.testing.TestPacket;
-import org.pieszku.messaging.api.packet.testing.TestPacketResponse;
-
-import java.util.concurrent.locks.LockSupport;
 
 public class RedisMessenger extends MessengerController {
 
@@ -28,8 +22,8 @@ public class RedisMessenger extends MessengerController {
 
         RedisMessengerDependencyInjector redisMessengerDependencyInjector = new RedisMessengerDependencyInjector(handlersPackageName);
         redisMessengerDependencyInjector.initialize(this.messengerConnection);
-    }
 
+    }
 
     public RedisMessengerConnection getMessengerConnection() {
         return messengerConnection;

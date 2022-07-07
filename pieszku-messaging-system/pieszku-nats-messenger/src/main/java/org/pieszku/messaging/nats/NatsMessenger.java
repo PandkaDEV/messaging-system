@@ -2,11 +2,7 @@ package org.pieszku.messaging.nats;
 
 import org.pieszku.messaging.api.connection.state.MessengerConnectionState;
 import org.pieszku.messaging.api.controller.MessengerController;
-import org.pieszku.messaging.api.entity.User;
 import org.pieszku.messaging.api.injector.type.MessengerPacketInjectorType;
-import org.pieszku.messaging.api.packet.MessengerPacketResponse;
-import org.pieszku.messaging.api.packet.testing.TestPacket;
-import org.pieszku.messaging.api.packet.testing.TestPacketResponse;
 
 public class NatsMessenger extends MessengerController<NatsMessengerConnection> {
 
@@ -27,7 +23,7 @@ public class NatsMessenger extends MessengerController<NatsMessengerConnection> 
 
         NatsMessengerDependencyInjector natsMessengerDependencyInjector = new NatsMessengerDependencyInjector(handlersPackageName);
         natsMessengerDependencyInjector.initialize(this.messengerConnection);
-        
+
     }
 
     public static void main(String[] args) {
