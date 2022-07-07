@@ -1,4 +1,19 @@
 
+```java
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependency>
+	    <groupId>com.github.Piechuuu</groupId>
+	    <artifactId>messaging-system</artifactId>
+	    <version>4dc61dc9dc</version>
+	</dependency>
+```
+
 ### NATS
 
 Example connection:
