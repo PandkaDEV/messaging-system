@@ -2,7 +2,9 @@
 ### NATS
 
 Example connection:
-
+```java
+        new NatsMessenger("0.0.0.0", 4222,"", "org.pieszku.messaging.nats.handler","messenger_response", "messenger_request");
+```
 ```java
         this.messengerConnection = new NatsMessengerConnection("0.0.0.0", 4222, "",
                 new String[]{"test_messenger_response", "test_messenger_request"},
@@ -61,6 +63,9 @@ public class TestPacketHandler implements MessengerCallbackPacketHandler<TestPac
 ### REDIS
 Almost how a Nats
 Example connection redis
+```java
+   new RedisMessenger("127.0.0.1", 6379, "","org.pieszku.messaging.redis.handler","messenger_response", "messenger_request" );
+```
 ```java
         this.messengerConnection = new RedisMessengerConnection("127.0.0.1", 6379, "",
                 new String[]{"test_messenger_response", "test_messenger_request"},
