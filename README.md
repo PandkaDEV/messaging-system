@@ -36,17 +36,6 @@ Example connection:
 ```java
         new NatsMessenger("0.0.0.0", 4222,"", "org.pieszku.messaging.nats.handler","messenger_response", "messenger_request");
 ```
-```java
-        this.messengerConnection = new NatsMessengerConnection("0.0.0.0", 4222, "",
-                new String[]{"test_messenger_response", "test_messenger_request"},
-                "org.pieszku.messaging.nats.handler");
-        this.messengerConnection.setConnectionState(MessengerConnectionState.TRYING);
-```
-Enable handlers receving packets: 
-```java
-        NatsMessengerDependencyInjector natsMessengerDependencyInjector = new NatsMessengerDependencyInjector(this);
-        natsMessengerDependencyInjector.initialize();
-```
 Example send callback packet: #try/catch is hardly required
 ```java
         try {
@@ -96,17 +85,6 @@ Almost how a Nats
 Example connection redis
 ```java
    new RedisMessenger("127.0.0.1", 6379, "","org.pieszku.messaging.redis.handler","messenger_response", "messenger_request" );
-```
-```java
-        this.messengerConnection = new RedisMessengerConnection("127.0.0.1", 6379, "",
-                new String[]{"test_messenger_response", "test_messenger_request"},
-                "org.pieszku.messaging.redis.handler");
-        this.messengerConnection.setConnectionState(MessengerConnectionState.TRYING);
-```
-Enable handlers receving packets: 
-```java
-        RedisMessengerDependencyInjector redisMessengerDependencyInjector = new RedisMessengerDependencyInjector(this);
-        redisMessengerDependencyInjector.initialize();
 ```
 Example send callback packet: #try/catch is hardly required
 ```java
