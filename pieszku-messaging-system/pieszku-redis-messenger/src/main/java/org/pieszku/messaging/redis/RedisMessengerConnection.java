@@ -1,18 +1,16 @@
 package org.pieszku.messaging.redis;
 
-import com.sun.xml.internal.ws.api.message.Packet;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
 import org.pieszku.messaging.api.connection.MessengerConnection;
 import org.pieszku.messaging.api.connection.exception.MessengerConnectionException;
-import org.pieszku.messaging.api.handler.MessengerPacketRequestHandler;
 import org.pieszku.messaging.api.packet.MessengerPacket;
 import org.pieszku.messaging.api.packet.MessengerPacketRequest;
 import org.pieszku.messaging.api.packet.MessengerPacketResponse;
-import org.pieszku.messaging.api.packet.testing.TestPacket;
-import org.reflections.Reflections;
+
+import java.util.concurrent.CompletableFuture;
 
 public class RedisMessengerConnection extends MessengerConnection {
 
@@ -67,7 +65,7 @@ public class RedisMessengerConnection extends MessengerConnection {
     }
 
     @Override
-    public <T extends MessengerPacketRequest> void sendRequestPacket(String channelName, MessengerPacketRequest packet, MessengerPacketResponse<T> packetResponse) {
+    public <T extends MessengerPacketRequest> CompletableFuture<T> sendRequestPacket(String channelName, MessengerPacketRequest packet, MessengerPacketResponse<T> packetResponse) {
         packet.setResponse(true);
         RedisMessenger.getInstance().getCallbackCache().add(packet.getCallbackId(), packetResponse);
         this.getConnection().sync().publish(channelName, packet);

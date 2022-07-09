@@ -8,9 +8,12 @@ import org.pieszku.messaging.api.connection.exception.MessengerSendPacketExcepti
 import org.pieszku.messaging.api.packet.MessengerPacket;
 import org.pieszku.messaging.api.packet.MessengerPacketRequest;
 import org.pieszku.messaging.api.packet.MessengerPacketResponse;
+import org.pieszku.messaging.api.packet.MessengerPacketSerializer;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class NatsMessengerConnection extends MessengerConnection {
 
@@ -58,7 +61,7 @@ public class NatsMessengerConnection extends MessengerConnection {
     @Override
     public <T extends MessengerPacket> void sendPacket(String channelName, T packet)  {
         try {
-            this.connection.publish(channelName, NatsMessengerPacketSerializer.serialize(packet));
+            this.connection.publish(channelName, MessengerPacketSerializer.serialize(packet));
         } catch (Exception e) {
             try {
                 throw new MessengerSendPacketException("NatsClient problem sent packet: " + e.getMessage());
@@ -69,18 +72,20 @@ public class NatsMessengerConnection extends MessengerConnection {
     }
 
     @Override
-    public <T extends MessengerPacketRequest> void sendRequestPacket(String channelName, MessengerPacketRequest packet, MessengerPacketResponse<T> packetResponse) {
-        try {
-            packet.setResponse(true);
-            NatsMessenger.getInstance().getCallbackCache().add(packet.getCallbackId(), packetResponse);
-            this.connection.publish(channelName, NatsMessengerPacketSerializer.serialize(packet));
-        } catch (Exception e) {
-            try {
-                throw new MessengerSendPacketException("NatsClient problem sent packet request: " + e.getMessage());
-            } catch (MessengerSendPacketException ex) {
-                ex.printStackTrace();
-            }
-        }
+    public <T extends MessengerPacketRequest> CompletableFuture<T> sendRequestPacket(String channelName, MessengerPacketRequest packet, MessengerPacketResponse<T> packetResponse) {
+        NatsMessenger.getInstance().getCallbackCache().add(packet.getCallbackId(), packetResponse);
+        return this.connection.requestWithTimeout(channelName, MessengerPacketSerializer.serialize(packet),
+                        Duration.ofMinutes(2L))
+                .thenApply(message -> (T) MessengerPacketSerializer.deserialize(message.getData()))
+                .whenComplete((data, throwable) -> {
+                    if (throwable == null && data != null && data.getErrorMessage() != null) {
+                        try {
+                            throw new MessengerSendPacketException("NatsClient problem sent packet request: " + data.getErrorMessage());
+                        } catch (MessengerSendPacketException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     @Override

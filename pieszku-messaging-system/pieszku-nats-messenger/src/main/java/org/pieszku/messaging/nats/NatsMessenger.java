@@ -23,7 +23,6 @@ public class NatsMessenger extends MessengerController<NatsMessengerConnection> 
 
         NatsMessengerDependencyInjector natsMessengerDependencyInjector = new NatsMessengerDependencyInjector(handlersPackageName);
         natsMessengerDependencyInjector.initialize(this.messengerConnection);
-
     }
     public NatsMessengerConnection getMessengerConnection() {
         return this.messengerConnection;

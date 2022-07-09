@@ -8,7 +8,6 @@ import org.pieszku.messaging.api.injector.type.MessengerPacketInjectorType;
 
 public abstract class MessengerController<T extends Messenger> extends MessengerPacketInjector<T> {
 
-    private final FSTConfiguration fstConfiguration = FSTConfiguration.createDefaultConfiguration();
     private final CallbackCache callbackCache = new CallbackCache();
 
     public MessengerController(MessengerPacketInjectorType packetInjectorType) {
@@ -19,7 +18,4 @@ public abstract class MessengerController<T extends Messenger> extends Messenger
         return callbackCache;
     }
 
-    public FSTConfiguration getFstConfiguration() {
-        return fstConfiguration;
-    }
 }

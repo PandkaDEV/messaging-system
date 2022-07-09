@@ -7,6 +7,8 @@ import org.pieszku.messaging.api.packet.MessengerPacket;
 import org.pieszku.messaging.api.packet.MessengerPacketRequest;
 import org.pieszku.messaging.api.packet.MessengerPacketResponse;
 
+import java.util.concurrent.CompletableFuture;
+
 public interface Messenger {
 
 
@@ -18,7 +20,7 @@ public interface Messenger {
 
     <T extends MessengerPacket> void sendPacket(String channelName, T packet) throws MessengerSendPacketException;
 
-    <T extends MessengerPacketRequest> void sendRequestPacket(String channelName, MessengerPacketRequest packet, MessengerPacketResponse<T> packetResponse) throws MessengerSendPacketException;
+    <T extends MessengerPacketRequest> CompletableFuture<T> sendRequestPacket(String channelName, MessengerPacketRequest packet, MessengerPacketResponse<T> packetResponse) throws MessengerSendPacketException;
 
     void reply(MessengerPacket replyPacket);
 }

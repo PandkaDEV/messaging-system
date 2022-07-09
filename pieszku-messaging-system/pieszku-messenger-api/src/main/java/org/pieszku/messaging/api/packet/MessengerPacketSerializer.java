@@ -1,11 +1,10 @@
-package org.pieszku.messaging.nats;
+package org.pieszku.messaging.api.packet;
 
 import org.nustaq.serialization.FSTConfiguration;
-import org.pieszku.messaging.api.packet.MessengerPacket;
 
-public class NatsMessengerPacketSerializer {
+public class MessengerPacketSerializer {
 
-    private static final FSTConfiguration FST_CONFIGURATION = NatsMessenger.getInstance().getFstConfiguration();
+    private static final FSTConfiguration FST_CONFIGURATION = FSTConfiguration.createDefaultConfiguration();
 
     public static MessengerPacket deserialize(byte[] input) {
         return (MessengerPacket) FST_CONFIGURATION.asObject(input);
